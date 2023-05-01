@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../../styles/search.css";
-import mockCities from "../../mocks/cities.json";
 import { Typeahead } from "react-bootstrap-typeahead";
 import IAirport from "../../types/Airport";
-
-import soap from "soap";
-const url = "http://localhost:8080/PlaneTicketsServer/AirportsWSService?WSDL";
+import AirportService from "../../services/AirportService";
 
 export const Search = () => {
   const [departureAirport, setDepartureAirport] = useState("");
@@ -18,20 +15,14 @@ export const Search = () => {
   const [flightTime, setFlightTime] = useState("12:00");
   const [cities, setCities] = useState([] as IAirport[]);
 
-  const test = () => {
-    soap
-      .createClientAsync(url)
-      .then((client) => {
-        return client.getAllAirports();
-      })
-      .then((result) => {
-        console.log(result);
-      });
-  };
-
   useEffect(() => {
-    console.log("test");
+    fetchAirports();
   }, []);
+
+  const fetchAirports = async () => {
+    const response = await AirportService.getAllAirports();
+    setCities(response!);
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -61,7 +52,9 @@ export const Search = () => {
               }
               console.log(departureAirport);
             }}
-            options={mockCities}
+            options={cities}
+            // @ts-expect-error: Typeahead is not typed properly
+            labelKey={(option: IAirport) => `${option.name} (${option.code})`}
           />
         </Form.Group>
 
@@ -76,7 +69,9 @@ export const Search = () => {
               }
               console.log(arrivalAirport);
             }}
-            options={mockCities}
+            options={cities}
+            // @ts-expect-error: Typeahead is not typed properly
+            labelKey={(option: IAirport) => `${option.name} (${option.code})`}
           />
         </Form.Group>
       </div>
