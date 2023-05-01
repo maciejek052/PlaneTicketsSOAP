@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "../../styles/search.css";
 import mockCities from "../../mocks/cities.json";
 import { Typeahead } from "react-bootstrap-typeahead";
+import IAirport from "../../types/Airport";
+
+import soap from "soap";
+const url = "http://localhost:8080/PlaneTicketsServer/AirportsWSService?WSDL";
 
 export const Search = () => {
   const [departureAirport, setDepartureAirport] = useState("");
@@ -12,6 +16,22 @@ export const Search = () => {
     new Date().toISOString().slice(0, 10)
   );
   const [flightTime, setFlightTime] = useState("12:00");
+  const [cities, setCities] = useState([] as IAirport[]);
+
+  const test = () => {
+    soap
+      .createClientAsync(url)
+      .then((client) => {
+        return client.getAllAirports();
+      })
+      .then((result) => {
+        console.log(result);
+      });
+  };
+
+  useEffect(() => {
+    console.log("test");
+  }, []);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
