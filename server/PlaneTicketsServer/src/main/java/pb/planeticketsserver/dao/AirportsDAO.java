@@ -24,7 +24,6 @@ public class AirportsDAO {
     private final String password = "app";
 
     public List<Airport> getAllAirports() {
-
         List<Airport> airports = new ArrayList<>();
          try (Connection conn = DriverManager.getConnection(url, user, password);
                 Statement stmt = conn.createStatement(); 

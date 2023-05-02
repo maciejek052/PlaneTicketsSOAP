@@ -1,10 +1,24 @@
 import { useState } from "react";
-import './index.css'
 import NavbarComponent from "./components/Navbar/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Flights } from "./components/Flights/Flights";
+import { Search } from "./components/Search/Search";
+import { Home } from "./components/Home/Home";
+import { SearchResults } from "./components/Search/SearchResults";
 function App() {
   return (
     <div className="app">
-      <NavbarComponent />
+      <BrowserRouter>
+        <div>
+          <NavbarComponent />
+        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/flights" element={<Flights />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/searchResults" element={<SearchResults />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

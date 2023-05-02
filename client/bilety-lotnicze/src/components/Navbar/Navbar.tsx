@@ -1,12 +1,9 @@
 import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import { Flights } from "../Flights/Flights";
-import { Search } from "../Search/Search";
-import { Home } from "../Home/Home";
+
 
 function NavbarComponent() {
   return (
-    <BrowserRouter>
       <div>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
           <Container>
@@ -36,14 +33,6 @@ function NavbarComponent() {
           </Container>
         </Navbar>
       </div>
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/flights" element={<Flights />} />
-          <Route path="/search" element={<Search />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
   );
 }
 

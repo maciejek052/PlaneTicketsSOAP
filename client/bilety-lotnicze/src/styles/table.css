@@ -1,0 +1,12 @@
+table {
+  max-width: 70vw;
+  margin: 2rem auto 0;
+}
+.table td {
+  vertical-align: middle;
+}
+.notFound {
+  margin-top: 2rem;
+  text-align: center;
+  font-weight: bold;
+}

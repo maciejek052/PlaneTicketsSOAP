@@ -11,20 +11,19 @@ import java.util.Date;
  * @author macie
  */
 public class Flight {
-    private Airport departureAirport; 
+
+    private int ID; 
+    private Airport departureAirport;
     private Airport destinationAirport;
-    private Date departureDate;
-        
+    private String departureDate;
+    private String time;
+
     public Airport getDepartureAirport() {
         return departureAirport;
     }
 
     public Airport getDestinationAirport() {
         return destinationAirport;
-    }
-
-    public Date getDepartureDate() {
-        return departureDate;
     }
 
     public void setDepartureAirport(Airport departureAirport) {
@@ -35,8 +34,28 @@ public class Flight {
         this.destinationAirport = destinationAirport;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public String getDepartureDate() {
+        return departureDate;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }
-    
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
 }
