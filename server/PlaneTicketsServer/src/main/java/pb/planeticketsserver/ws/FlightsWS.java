@@ -32,5 +32,15 @@ public class FlightsWS {
         }
         return null;
     }
+    
+    @WebMethod
+    public List<String> getOccupiedSeats(int flightID) {
+        try { 
+            return flightsDAO.getOccupiedSeats(flightID);
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightsWS.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
 }

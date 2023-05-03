@@ -5,6 +5,8 @@ import { Flights } from "./components/Flights/Flights";
 import { Search } from "./components/Search/Search";
 import { Home } from "./components/Home/Home";
 import { SearchResults } from "./components/Search/SearchResults";
+import { FlightPreview } from "./components/FlightPreview/FlightPreview";
+import { ReservationConfirmation } from "./components/Reservation/ReservationConfirmation";
 function App() {
   return (
     <div className="app">
@@ -14,9 +16,11 @@ function App() {
         </div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/flights" element={<Flights />} />
+          <Route path="/allFlights" element={<Flights />} />
           <Route path="/search" element={<Search />} />
           <Route path="/searchResults" element={<SearchResults />} />
+          <Route path="/flight" element={<FlightPreview />} />
+          <Route path="/reservationConfirmation" element={<ReservationConfirmation />} />
         </Routes>
       </BrowserRouter>
     </div>

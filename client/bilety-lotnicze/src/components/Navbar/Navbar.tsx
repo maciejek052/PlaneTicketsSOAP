@@ -13,7 +13,7 @@ function NavbarComponent() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link as={Link} to="/flights">
+                <Nav.Link as={Link} to="/allFlights">
                   Baza lotów
                 </Nav.Link>
                 <Nav.Link as={Link} to="/search">

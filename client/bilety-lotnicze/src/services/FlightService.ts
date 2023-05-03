@@ -55,9 +55,51 @@ const getFlights = async (from: string, to: string, date: string) => {
     console.log(e)
   }
 }
+const getOccupiedSeats = async (flightID: number) => {
+  const req = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.planeticketsserver.pb/">\
+  <soapenv:Header/>\
+  <soapenv:Body>\
+      <ws:getOccupiedSeats >\
+          <arg0>${flightID}</arg0>\
+      </ws:getOccupiedSeats >\
+  </soapenv:Body>\
+</soapenv:Envelope>`
+  try {
+    const response = await axios.post(
+      'http://localhost:8080/PlaneTicketsServer/FlightsWSService?WSDL',
+      req,
+      { headers: { 'Content-Type': 'text/xml' } }
+    )
+
+    const xml = xml2js(response.data as string, {
+      compact: true,
+      ignoreDeclaration: true,
+      ignoreInstruction: true,
+      ignoreComment: true,
+      ignoreAttributes: false,
+      ignoreDoctype: true
+    })
+
+    // @ts-expect-error: Type 'unknown' has no property 'length'
+    let ar = xml['S:Envelope']['S:Body']['ns2:getOccupiedSeatsResponse']['return']
+    if (!Array.isArray(ar)) {
+      ar = [].concat(ar)
+    }
+    const list: string[] = [];
+    for (const obj of ar) {
+      const text = obj._text
+      const strings = JSON.parse(text)
+      list.push(...strings)
+    } 
+    return list
+  } catch (e) {
+    console.log(e)
+  }
+}
 
 const AirportService = {
-  getFlights
+  getFlights,
+  getOccupiedSeats
 }
 
 export default AirportService

@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.logging.Logger;
 import pb.planeticketsserver.Airport;
 import pb.planeticketsserver.Flight;
 
@@ -57,4 +55,21 @@ public class FlightsDAO {
         }
         return flights;
     }
+
+    public List<String> getOccupiedSeats(int flightID) throws SQLException {
+        String query = "SELECT SEATS FROM RESERVATION WHERE FLIGHTID=" + flightID;
+        System.out.println(query);
+        List<String> results = new ArrayList<>();
+        Connection conn = DriverManager.getConnection(url, user, password);
+        PreparedStatement stmt = conn.prepareStatement(query);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            results.add(rs.getString("SEATS")); 
+        }
+        if (results.isEmpty()) {
+            results.add("[]");
+        }
+        return results; 
+    }
+    
 }
