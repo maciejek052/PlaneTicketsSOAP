@@ -6,7 +6,7 @@ import { Search } from "./components/Search/Search";
 import { Home } from "./components/Home/Home";
 import { SearchResults } from "./components/Search/SearchResults";
 import { FlightPreview } from "./components/FlightPreview/FlightPreview";
-import { ReservationConfirmation } from "./components/Reservation/ReservationConfirmation";
+import { Reservation } from "./components/Reservation/Reservation";
 function App() {
   return (
     <div className="app">
@@ -20,7 +20,7 @@ function App() {
           <Route path="/search" element={<Search />} />
           <Route path="/searchResults" element={<SearchResults />} />
           <Route path="/flight" element={<FlightPreview />} />
-          <Route path="/reservationConfirmation" element={<ReservationConfirmation />} />
+          <Route path="/reservation" element={<Reservation />} />
         </Routes>
       </BrowserRouter>
     </div>

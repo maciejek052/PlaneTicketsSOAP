@@ -12,15 +12,16 @@ import java.util.UUID;
  */
 public class Reservation {
 
-    private UUID id;
+    private int id;
     private Flight flight;
-    private int[] seats;
+    private String seats;
+    private String name;
 
     public Flight getFlight() {
         return flight;
     }
 
-    public int[] getSeats() {
+    public String getSeats() {
         return seats;
     }
 
@@ -28,15 +29,23 @@ public class Reservation {
         this.flight = flight;
     }
 
-    public void setSeats(int[] seats) {
+    public void setSeats(String seats) {
         this.seats = seats;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setId(int id) {
         this.id = id;
     }
 
