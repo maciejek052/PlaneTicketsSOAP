@@ -1,0 +1,12 @@
+.background-image {
+    background-image: url("https://i.ibb.co/Z2S37YG/pexels-photo-912050-jpeg-cs-srgb-dl-pexels-ahmed-muntasir-912050.jpg");
+    background-position: center;
+    background-size: auto;
+    height: 100vh;
+  }
+  
+  .landing-page h1,
+  .landing-page p {
+    color: #fff;
+  }
+

@@ -5,6 +5,7 @@ import ReservationService from "../../services/ReservationService";
 import IReservation from "../../types/Reservation";
 import { ReservationCard } from "./ReservationCard";
 import { Button } from "react-bootstrap";
+import "../../styles/reservation.css";
 
 export const Reservation = () => {
   const { search } = useLocation();
@@ -23,8 +24,8 @@ export const Reservation = () => {
   const fetchReservationInfo = async () => {
     const reservation = await ReservationService.getReservation(id!);
     setReservationInfo(reservation!);
-    setReservationFetched(true);
-    console.log(reservation);
+    setReservationFetched(Boolean(reservation));
+    // console.log(reservation);
   };
 
   const fetchSeats = async () => {
@@ -34,16 +35,18 @@ export const Reservation = () => {
       );
       setSeatsInfo(seats!);
       setSeatsFetched(true);
-      console.log(seatsInfo);
+      //console.log(seatsInfo);
     }
   };
 
   return (
     <div>
-      {reservationFetched && seatsFetched && (
+      {reservationFetched && seatsFetched ? (
         <>
           <ReservationCard reservation={reservationInfo} seats={seatsInfo} />
         </>
+      ) : (
+        <div className="notFound">Brak rezerwacji o podanym numerze</div>
       )}
     </div>
   );

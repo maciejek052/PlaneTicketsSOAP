@@ -7,18 +7,28 @@ interface SeatsProps {
   occupiedSeats: string[];
   selected: string[];
   clickable: boolean;
-  onData: any; 
+  onData: any;
 }
 
-export const Seats = ({ occupiedSeats, selected, clickable, onData }: SeatsProps) => {
-  const [selectedSeats, setSelectedSeats] = useState(selected as string[])
+export const Seats = ({
+  occupiedSeats,
+  selected,
+  clickable,
+  onData,
+}: SeatsProps) => {
+  const [selectedSeats, setSelectedSeats] = useState(selected as string[]);
   const [unavailableSeats, setUnavailableSeats] = useState(
     occupiedSeats as string[]
   );
 
   useEffect(() => {
-    onData(selectedSeats)
-    }, [selectedSeats])
+    setSelectedSeats(selected);
+    setUnavailableSeats(occupiedSeats);
+  }, [occupiedSeats]); 
+
+  useEffect(() => {
+    onData(selectedSeats);
+  }, [selectedSeats]);
 
   const handleSeatClick = (seat: string) => {
     if (clickable) {
@@ -31,26 +41,9 @@ export const Seats = ({ occupiedSeats, selected, clickable, onData }: SeatsProps
     }
   };
 
-
   const renderSeats = () => {
     const rows = ["A", "B", "C", "D", "E", "F"];
-    const cols = [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-      "13",
-      "14",
-      "15",
-    ];
+    const cols = ["1","2","3","4","5","6","7","8","9","10","11","12", "13","14","15"];
     return rows.map((row, index) => (
       <React.Fragment key={row}>
         <Row>

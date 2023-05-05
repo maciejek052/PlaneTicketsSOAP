@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IReservation from "../../types/Reservation";
 import { Card, Button } from "react-bootstrap";
 import "../../styles/flight.css";
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const ReservationCard = ({ reservation, seats }: Props) => {
-  console.log(reservation, seats);
+  
   return (
     <div className="flightPreview">
       <Card className="text-center" bg="dark">
