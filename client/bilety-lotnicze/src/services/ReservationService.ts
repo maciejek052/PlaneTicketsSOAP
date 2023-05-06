@@ -95,9 +95,40 @@ const getReservation = async (id: string) => {
   }
 }
 
+const getReservationConfirmation = async (id: string) => {
+
+  const response = await axios.post(
+    'http://localhost:8080/PlaneTicketsServer/ReservationWSService?WSDL',
+    `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.planeticketsserver.pb/">\
+      <soapenv:Header/>\
+      <soapenv:Body>\
+        <ws:downloadPDF>\
+          <arg0>${id}</arg0>\
+        </ws:downloadPDF>\
+      </soapenv:Body>\
+    </soapenv:Envelope>`,
+    {
+      headers: { 'Content-Type': 'text/xml' }
+    },
+  );
+  const xml = xml2js(response.data as string, {
+    compact: true,
+    ignoreDeclaration: true,
+    ignoreInstruction: true,
+    ignoreComment: true,
+    ignoreAttributes: false,
+    ignoreDoctype: true
+  })
+  // @ts-expect-error: Type 'unknown' has no property 'length'
+  const pdf = xml['S:Envelope']['S:Body']['ns2:downloadPDFResponse']['return']._text
+  return pdf
+}
+
+
 const ReservationService = {
   addReservation,
-  getReservation
+  getReservation,
+  getReservationConfirmation
 }
 
 export default ReservationService

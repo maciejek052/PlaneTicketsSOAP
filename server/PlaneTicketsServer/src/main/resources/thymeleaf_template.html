@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Rezerwacja biletu lotniczego</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #0077c0;
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+        span {
+            font-weight: bold;
+            color: #333;
+        }
+        .flight-info {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .passenger-info {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .seat-info {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rezerwacja o numerze <span th:text="${reservationID}"></span></h1>
+    <div class="flight-info">
+        <p>Informacje o locie numer <span th:text="${flightID}"></span>:</p>
+        <ul>
+            <li>Lotnisko odlotu: <span th:text="${departureAirport}"></span></li>
+            <li>Lotnisko przylotu: <span th:text="${arrivalAirport}"></span></li>
+            <li>Data lotu: <span th:text="${flightDate}"></span></li>
+            <li>Godzina lotu: <span th:text="${flightTime}"></span></li>
+        </ul>
+    </div>
+    <div class="passenger-info">
+        <p>Informacje o rezerwujacym:</p>
+        <ul>
+            <li>Imie i nazwisko: <span th:text="${passengerName}"></span></li>
+        </ul>
+    </div>
+    <div class="seat-info">
+        <p>Miejsce:</p>
+        <ul>
+            <li>Wybrane miejsca: <span th:text="${seatNumber}"></span></li>
+        </ul>
+    </div>
+</body>
+</html>

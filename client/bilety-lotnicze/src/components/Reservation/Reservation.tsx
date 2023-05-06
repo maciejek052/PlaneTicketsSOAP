@@ -15,6 +15,7 @@ export const Reservation = () => {
   const [seatsInfo, setSeatsInfo] = useState([] as string[]);
   const [reservationFetched, setReservationFetched] = useState(false);
   const [seatsFetched, setSeatsFetched] = useState(false);
+  const [reservationPDF, setReservationPDF] = useState();
 
   useEffect(() => {
     fetchReservationInfo();
@@ -23,6 +24,10 @@ export const Reservation = () => {
 
   const fetchReservationInfo = async () => {
     const reservation = await ReservationService.getReservation(id!);
+    const reservationPDF = await ReservationService.getReservationConfirmation(
+      id!
+    );
+    setReservationPDF(reservationPDF);
     setReservationInfo(reservation!);
     setReservationFetched(Boolean(reservation));
     // console.log(reservation);
@@ -39,11 +44,25 @@ export const Reservation = () => {
     }
   };
 
+  const openPDF = () => {
+    const pdfWindow = window.open("");
+    pdfWindow!.document.write(
+      "<iframe width='100%' height='100%' src='data:application/pdf;base64," +
+        reservationPDF +
+        "'></iframe>"
+    );
+  };
+
   return (
     <div>
       {reservationFetched && seatsFetched ? (
         <>
           <ReservationCard reservation={reservationInfo} seats={seatsInfo} />
+          <div className="col text-center">
+            <Button variant="success" className="resButton" onClick={openPDF}>
+              Pobierz potwierdzenie rezerwacji
+            </Button>
+          </div>
         </>
       ) : (
         <div className="notFound">Brak rezerwacji o podanym numerze</div>
