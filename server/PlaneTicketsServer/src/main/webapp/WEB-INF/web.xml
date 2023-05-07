@@ -6,6 +6,11 @@
     <filter>
         <filter-name>CORS Filter</filter-name>
         <filter-class>org.ebaysf.web.cors.CORSFilter</filter-class>
+        <init-param>
+            <description>A comma separated list of allowed headers when making a non simple CORS request.</description>
+            <param-name>cors.allowed.headers</param-name>
+            <param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>CORS Filter</filter-name>
@@ -16,4 +21,41 @@
             30
         </session-timeout>
     </session-config>
+    <!-- Security constraint for resource only accessible to role -->
+    <security-constraint>
+        <display-name>WebServiceSecurity</display-name>
+
+        <web-resource-collection>
+            <web-resource-name>Authorized users only</web-resource-name>
+            <url-pattern>/AirportsWSService</url-pattern>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Authorized users only</web-resource-name>
+            <url-pattern>/ReservationWSService</url-pattern>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Authorized users only</web-resource-name>
+            <url-pattern>/FlightsWSService</url-pattern>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>  
+
+    <!-- BASIC authorization -->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
+
+    <!-- Definition of role -->
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
 </web-app>

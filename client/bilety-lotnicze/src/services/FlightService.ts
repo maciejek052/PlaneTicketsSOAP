@@ -17,9 +17,14 @@ const getFlights = async (from: string, to: string, date: string) => {
 
   try {
     const response = await axios.post(
-      'http://localhost:8080/PlaneTicketsServer/FlightsWSService?WSDL',
+      'https://localhost:8181/PlaneTicketsServer/FlightsWSService?WSDL',
       req,
-      { headers: { 'Content-Type': 'text/xml' } }
+      {
+        headers: {
+          'Content-Type': 'text/xml',
+          Authorization: 'Basic dXNlcjpxd2VydHkx' // user:qwerty1
+        }
+      }
     )
 
     const xml = xml2js(response.data as string, {
@@ -66,9 +71,14 @@ const getOccupiedSeats = async (flightID: number) => {
 </soapenv:Envelope>`
   try {
     const response = await axios.post(
-      'http://localhost:8080/PlaneTicketsServer/FlightsWSService?WSDL',
+      'https://localhost:8181/PlaneTicketsServer/FlightsWSService?WSDL',
       req,
-      { headers: { 'Content-Type': 'text/xml' } }
+      {
+        headers: {
+          'Content-Type': 'text/xml',
+          Authorization: 'Basic dXNlcjpxd2VydHkx' // user:qwerty1
+        }
+      }
     )
 
     const xml = xml2js(response.data as string, {
@@ -85,12 +95,12 @@ const getOccupiedSeats = async (flightID: number) => {
     if (!Array.isArray(ar)) {
       ar = [].concat(ar)
     }
-    const list: string[] = [];
+    const list: string[] = []
     for (const obj of ar) {
       const text = obj._text
       const strings = JSON.parse(text)
       list.push(...strings)
-    } 
+    }
     return list
   } catch (e) {
     console.log(e)
