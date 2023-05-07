@@ -17,9 +17,14 @@ const addReservation = async (reservation: any) => {
     </soapenv:Envelope>`
   try {
     const response = await axios.post(
-      'http://localhost:8080/PlaneTicketsServer/ReservationWSService?WSDL',
+      'https://localhost:8181/PlaneTicketsServer/ReservationWSService?WSDL',
       req,
-      { headers: { 'Content-Type': 'text/xml' } }
+      {
+        headers: {
+          'Content-Type': 'text/xml',
+          Authorization: 'Basic dXNlcjpxd2VydHkx' // user:qwerty1
+        }
+      }
     )
     const xml = xml2js(response.data as string, {
       compact: true,
@@ -51,9 +56,14 @@ const getReservation = async (id: string) => {
   </soapenv:Envelope>`
   try {
     const response = await axios.post(
-      'http://localhost:8080/PlaneTicketsServer/ReservationWSService?WSDL',
+      'https://localhost:8181/PlaneTicketsServer/ReservationWSService?WSDL',
       req,
-      { headers: { 'Content-Type': 'text/xml' } }
+      {
+        headers: {
+          'Content-Type': 'text/xml',
+          Authorization: 'Basic dXNlcjpxd2VydHkx' // user:qwerty1
+        }
+      }
     )
     const xml = xml2js(response.data as string, {
       compact: true,
@@ -96,9 +106,8 @@ const getReservation = async (id: string) => {
 }
 
 const getReservationConfirmation = async (id: string) => {
-
   const response = await axios.post(
-    'http://localhost:8080/PlaneTicketsServer/ReservationWSService?WSDL',
+    'https://localhost:8181/PlaneTicketsServer/ReservationWSService?WSDL',
     `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://ws.planeticketsserver.pb/">\
       <soapenv:Header/>\
       <soapenv:Body>\
@@ -108,9 +117,12 @@ const getReservationConfirmation = async (id: string) => {
       </soapenv:Body>\
     </soapenv:Envelope>`,
     {
-      headers: { 'Content-Type': 'text/xml' }
-    },
-  );
+      headers: {
+        'Content-Type': 'text/xml',
+        Authorization: 'Basic dXNlcjpxd2VydHkx' // user:qwerty1
+      }
+    }
+  )
   const xml = xml2js(response.data as string, {
     compact: true,
     ignoreDeclaration: true,
@@ -123,7 +135,6 @@ const getReservationConfirmation = async (id: string) => {
   const pdf = xml['S:Envelope']['S:Body']['ns2:downloadPDFResponse']['return']._text
   return pdf
 }
-
 
 const ReservationService = {
   addReservation,
